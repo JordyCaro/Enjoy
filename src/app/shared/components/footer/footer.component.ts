@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../../core/services/theme.service';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +15,7 @@ import { CommonModule } from '@angular/common';
           <div class="flex flex-col items-start">
             <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">Enjoy</h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              Un espacio seguro para acompañarte en tu camino hacia el bienestar emocional.
+              {{ translate('safeSpace') }}
             </p>
             <div class="flex items-center space-x-4 mt-2">
               <button 
@@ -21,10 +23,13 @@ import { CommonModule } from '@angular/common';
                 aria-label="Cambiar tema"
                 (click)="toggleTheme()"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg *ngIf="currentTheme === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
-                Cambiar tema
+                <svg *ngIf="currentTheme === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                {{ translate('changeTheme') }}
               </button>
               <button 
                 class="text-sm flex items-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
@@ -34,20 +39,20 @@ import { CommonModule } from '@angular/common';
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                 </svg>
-                ES / EN
+                {{ translate('changeLanguage') }}
               </button>
             </div>
           </div>
           
           <div>
-            <h3 class="text-md font-medium text-gray-900 dark:text-white mb-3">Apoyo gratuito</h3>
+            <h3 class="text-md font-medium text-gray-900 dark:text-white mb-3">{{ translate('supportLines') }}</h3>
             <ul class="space-y-2 text-sm">
               <li>
                 <a href="tel:018000113113" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  Línea 113 (Prevención suicidio)
+                  {{ translate('suicidePrevention') }} (113)
                 </a>
               </li>
               <li>
@@ -55,7 +60,7 @@ import { CommonModule } from '@angular/common';
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  Línea 141 (Protección infantil)
+                  {{ translate('childProtection') }} (141)
                 </a>
               </li>
               <li>
@@ -63,7 +68,7 @@ import { CommonModule } from '@angular/common';
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  Línea Púrpura (Violencia de género)
+                  {{ translate('genderViolence') }} (Línea Púrpura)
                 </a>
               </li>
               <li>
@@ -71,24 +76,24 @@ import { CommonModule } from '@angular/common';
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                  Ver todos los recursos
+                  {{ translate('seeAll') }}
                 </a>
               </li>
             </ul>
           </div>
           
           <div>
-            <h3 class="text-md font-medium text-gray-900 dark:text-white mb-3">¿Necesitas hablar?</h3>
+            <h3 class="text-md font-medium text-gray-900 dark:text-white mb-3">{{ translate('needToTalk') }}</h3>
             <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg mb-3">
               <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                Nuestro chat está disponible 24/7 para escucharte sin juicios.
+                {{ translate('chatAvailable') }}
               </p>
               <div class="flex space-x-2">
                 <a routerLink="/chat" class="flex-1 px-3 py-2 text-sm text-center font-medium text-white bg-primary-600 rounded-md hover:bg-primary-700">
-                  Hablar ahora
+                  {{ translate('talkNowBtn') }}
                 </a>
                 <a routerLink="/chat?mode=anonymous" class="px-3 py-2 text-sm text-center font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 dark:text-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500">
-                  Modo anónimo
+                  {{ translate('anonymousModeBtn') }}
                 </a>
               </div>
             </div>
@@ -96,21 +101,21 @@ import { CommonModule } from '@angular/common';
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              Unirte a la comunidad
+              {{ translate('joinCommunityLink') }}
             </a>
           </div>
         </div>
         
         <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center">
           <p class="text-xs text-gray-500 dark:text-gray-400 mb-2 md:mb-0">
-            © 2025 Enjoy. Con 💜 para tu bienestar.
+            © 2025 Enjoy. {{ translate('madeWithLove') }}
           </p>
           <div class="flex space-x-4 text-xs">
             <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-              Privacidad
+              {{ translate('privacyPolicy') }}
             </a>
             <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-              Términos
+              {{ translate('termsOfService') }}
             </a>
           </div>
         </div>
@@ -120,13 +125,31 @@ import { CommonModule } from '@angular/common';
   styles: ``,
 })
 export class FooterComponent {
+  currentTheme: 'light' | 'dark' = 'light';
+  currentLanguage: 'es' | 'en' = 'es';
+
+  constructor(
+    private themeService: ThemeService,
+    private languageService: LanguageService
+  ) {
+    this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
+
+    this.languageService.currentLanguage$.subscribe(language => {
+      this.currentLanguage = language;
+    });
+  }
+
   toggleTheme() {
-    // Método que será implementado para cambiar entre modo claro y oscuro
-    document.documentElement.classList.toggle('dark');
+    this.themeService.toggleTheme();
   }
 
   toggleLanguage() {
-    // Método que será implementado para cambiar entre español e inglés
-    console.log('Cambiar idioma');
+    this.languageService.toggleLanguage();
+  }
+
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 } 

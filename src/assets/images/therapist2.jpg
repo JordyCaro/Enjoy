@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Fondo con degradado -->
+  <defs>
+    <linearGradient id="background-gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f5ff" />
+      <stop offset="100%" stop-color="#e0ebff" />
+    </linearGradient>
+    <linearGradient id="face-gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d5c5" />
+      <stop offset="100%" stop-color="#e3b19b" />
+    </linearGradient>
+    <linearGradient id="hair-gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a" />
+      <stop offset="100%" stop-color="#333333" />
+    </linearGradient>
+    <linearGradient id="suit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d3748" />
+      <stop offset="100%" stop-color="#1a202c" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="url(#background-gradient2)" />
+  
+  <!-- Decoración de fondo - formas -->
+  <polygon points="0,0 100,0 0,100" fill="#d9e6ff" opacity="0.5" />
+  <polygon points="400,300 300,300 400,200" fill="#d9e6ff" opacity="0.5" />
+  <circle cx="350" cy="50" r="40" fill="#d9e6ff" opacity="0.5" />
+  <circle cx="50" cy="250" r="30" fill="#d9e6ff" opacity="0.5" />
+  
+  <!-- Cuerpo -->
+  <ellipse cx="200" cy="320" rx="80" ry="40" fill="#2d3748" opacity="0.3" />
+  <rect x="160" y="170" width="80" height="130" rx="2" fill="url(#suit-gradient)" />
+  
+  <!-- Camisa y corbata -->
+  <path d="M175 170 L200 210 L225 170" fill="white" />
+  <path d="M195 170 L200 210 L205 170 Z" fill="#8c52ff" />
+  
+  <!-- Cabeza -->
+  <circle cx="200" cy="120" r="50" fill="url(#face-gradient2)" />
+  
+  <!-- Cabello y barba -->
+  <path d="M200 70 Q160 70 155 110 Q155 150 180 160 L180 110 L220 110 L220 160 Q245 150 245 110 Q240 70 200 70" fill="url(#hair-gradient2)" />
+  <path d="M170 140 Q200 160 230 140 L230 160 Q200 180 170 160 Z" fill="url(#hair-gradient2)" />
+  
+  <!-- Ojos -->
+  <ellipse cx="180" cy="115" rx="7" ry="5" fill="white" />
+  <ellipse cx="220" cy="115" rx="7" ry="5" fill="white" />
+  <circle cx="180" cy="115" r="3" fill="#594839" />
+  <circle cx="220" cy="115" r="3" fill="#594839" />
+  <circle cx="178" cy="113" r="1" fill="white" />
+  <circle cx="218" cy="113" r="1" fill="white" />
+  
+  <!-- Cejas -->
+  <path d="M170 103 Q180 98 190 103" fill="none" stroke="#333333" stroke-width="2" />
+  <path d="M210 103 Q220 98 230 103" fill="none" stroke="#333333" stroke-width="2" />
+  
+  <!-- Nariz -->
+  <path d="M200 115 L200 130 Q195 135 200 135" fill="none" stroke="#dba995" stroke-width="2" />
+  
+  <!-- Boca -->
+  <path d="M190 145 Q200 147 210 145" fill="none" stroke="#dba995" stroke-width="2" />
+  
+  <!-- Detalles profesionales -->
+  <rect x="25" y="20" rx="5" ry="5" width="130" height="30" fill="#8c52ff" opacity="0.8" />
+  <text x="35" y="40" font-family="Arial" font-size="12" fill="white">Dr. Carlos Rodríguez</text>
+  
+  <rect x="25" y="55" rx="4" ry="4" width="90" height="20" fill="#8c52ff" opacity="0.6" />
+  <text x="33" y="70" font-family="Arial" font-size="10" fill="white">Trauma, TEPT</text>
+  
+  <!-- Calificación -->
+  <g transform="translate(260, 25)">
+    <rect rx="15" ry="15" width="90" height="30" fill="#ffc107" opacity="0.8" />
+    <text x="20" y="20" font-family="Arial" font-size="14" fill="white">★★★★</text>
+  </g>
+  
+  <!-- Placa/Identificación -->
+  <rect x="185" y="190" width="30" height="20" fill="white" opacity="0.9" />
+  <text x="190" y="205" font-family="Arial" font-size="12" fill="#333333">Dr.</text>
+</svg>

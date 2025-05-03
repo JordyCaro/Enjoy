@@ -87,13 +87,17 @@ module.exports = {
         },
       },
       boxShadow: {
-        soft: '0 2px 15px 0 rgba(0, 0, 0, 0.05)',
-        medium: '0 4px 20px 0 rgba(0, 0, 0, 0.1)',
+        soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        medium: '0 4px 20px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       },
       borderRadius: {
         'xl': '1rem',
         '2xl': '1.5rem',
         '3xl': '2rem',
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        display: ['Montserrat', 'sans-serif'],
       },
     },
   },

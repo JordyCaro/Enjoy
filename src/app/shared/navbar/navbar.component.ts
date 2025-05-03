@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../core/services/theme.service';
+import { LanguageService } from '../../core/services/language.service';
+import { UserProgressService } from '../../core/services/user-progress.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +17,7 @@ import { CommonModule } from '@angular/common';
             <div class="text-xl font-semibold text-gray-700">
               <a class="text-2xl font-bold flex items-center text-gray-800 dark:text-white lg:text-2xl" routerLink="/">
                 <span class="text-primary-600 mr-2">Enjoy</span>
-                <span class="text-sm text-gray-600 dark:text-gray-300">mi bienestar</span>
+                <span class="text-sm text-gray-600 dark:text-gray-300">{{ translate('myWellbeing') }}</span>
               </a>
             </div>
 
@@ -47,36 +50,36 @@ import { CommonModule } from '@angular/common';
                 routerLinkActive="text-primary-600 dark:text-primary-400"
                 [routerLinkActiveOptions]="{exact: true}"
                 class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >Inicio</a
+                >{{ translate('home') }}</a
               >
               <a
                 routerLink="/resources"
                 routerLinkActive="text-primary-600 dark:text-primary-400"
                 class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >Recursos</a
+                >{{ translate('resources') }}</a
               >
               <a
                 routerLink="/community"
                 routerLinkActive="text-primary-600 dark:text-primary-400"
                 class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >Comunidad</a
+                >{{ translate('community') }}</a
               >
               <a
                 routerLink="/chat"
                 routerLinkActive="text-primary-600 dark:text-primary-400"
                 class="px-2 py-1 mx-2 mt-2 flex items-center text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                <span>Hablar ahora</span>
+                <span>{{ translate('chat') }}</span>
                 <span class="flex h-2 w-2 relative ml-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
               </a>
               <a
-                routerLink="/find-therapist"
+                routerLink="/therapists"
                 routerLinkActive="text-primary-600 dark:text-primary-400"
                 class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >Terapeutas</a
+                >{{ translate('findTherapist') }}</a
               >
             </div>
 
@@ -98,8 +101,11 @@ import { CommonModule } from '@angular/common';
                 aria-label="Cambiar tema"
                 (click)="toggleTheme()"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg *ngIf="currentTheme === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg *ngIf="currentTheme === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </button>
 
@@ -124,13 +130,13 @@ import { CommonModule } from '@angular/common';
                   
                   <!-- Dropdown menu -->
                   <div *ngIf="isProfileMenuOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 dark:bg-gray-800">
-                    <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Mi perfil</a>
-                    <a routerLink="/progress" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Mi progreso</a>
+                    <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('profile') }}</a>
+                    <a routerLink="/progress" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('progress') }}</a>
                     <div class="border-t border-gray-100 dark:border-gray-700"></div>
-                    <a routerLink="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Iniciar sesión</a>
-                    <a routerLink="/register" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Registrarse</a>
+                    <a routerLink="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('login') }}</a>
+                    <a routerLink="/register" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('signUp') }}</a>
                     <div class="border-t border-gray-100 dark:border-gray-700"></div>
-                    <a routerLink="/chat?mode=anonymous" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Modo anónimo</a>
+                    <a routerLink="/chat?mode=anonymous" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('anonymousMode') }}</a>
                   </div>
                 </div>
               </div>
@@ -142,24 +148,46 @@ import { CommonModule } from '@angular/common';
   `,
   styles: ``
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isOpen = false;
   isProfileMenuOpen = false;
+  currentTheme: 'light' | 'dark' = 'light';
+  currentLanguage: 'es' | 'en' = 'es';
 
-  toggleMenu() {
+  constructor(
+    private themeService: ThemeService,
+    private languageService: LanguageService,
+    private userProgressService: UserProgressService
+  ) {}
+
+  ngOnInit(): void {
+    this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
+
+    this.languageService.currentLanguage$.subscribe(language => {
+      this.currentLanguage = language;
+    });
+  }
+
+  toggleMenu(): void {
     this.isOpen = !this.isOpen;
   }
 
-  toggleProfileMenu() {
+  toggleProfileMenu(): void {
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
   }
 
-  toggleTheme() {
-    document.documentElement.classList.toggle('dark');
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 
-  toggleLanguage() {
-    console.log('Cambiar idioma');
+  toggleLanguage(): void {
+    this.languageService.toggleLanguage();
+  }
+
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 }
  

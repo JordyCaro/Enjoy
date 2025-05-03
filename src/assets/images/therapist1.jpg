@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Fondo con degradado -->
+  <defs>
+    <linearGradient id="background-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f9fa" />
+      <stop offset="100%" stop-color="#e9ecef" />
+    </linearGradient>
+    <linearGradient id="face-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffddc1" />
+      <stop offset="100%" stop-color="#ffb38a" />
+    </linearGradient>
+    <linearGradient id="hair-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a3825" />
+      <stop offset="100%" stop-color="#3d2314" />
+    </linearGradient>
+    <linearGradient id="jacket-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6c63ff" />
+      <stop offset="100%" stop-color="#5046e5" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="url(#background-gradient)" />
+  
+  <!-- Decoración de fondo - círculos -->
+  <circle cx="50" cy="50" r="30" fill="#f6f7f8" opacity="0.6" />
+  <circle cx="350" cy="70" r="25" fill="#f6f7f8" opacity="0.6" />
+  <circle cx="90" cy="240" r="20" fill="#f6f7f8" opacity="0.6" />
+  <circle cx="330" cy="250" r="35" fill="#f6f7f8" opacity="0.6" />
+  
+  <!-- Cuerpo -->
+  <ellipse cx="200" cy="320" rx="80" ry="40" fill="#6c63ff" opacity="0.3" />
+  <rect x="160" y="170" width="80" height="130" rx="10" fill="url(#jacket-gradient)" />
+  
+  <!-- Cuello de la camisa -->
+  <path d="M175 170 L200 190 L225 170" fill="white" stroke="white" stroke-width="2" />
+  
+  <!-- Cabeza -->
+  <circle cx="200" cy="120" r="50" fill="url(#face-gradient)" />
+  
+  <!-- Cabello -->
+  <path d="M200 70 Q150 70 150 110 Q150 130 170 140 L170 110 Q180 105 200 105 Q220 105 230 110 L230 140 Q250 130 250 110 Q250 70 200 70" fill="url(#hair-gradient)" />
+  
+  <!-- Ojos -->
+  <ellipse cx="180" cy="115" rx="8" ry="6" fill="white" />
+  <ellipse cx="220" cy="115" rx="8" ry="6" fill="white" />
+  <circle cx="180" cy="115" r="4" fill="#523B29" />
+  <circle cx="220" cy="115" r="4" fill="#523B29" />
+  <circle cx="182" cy="113" r="1.5" fill="white" />
+  <circle cx="222" cy="113" r="1.5" fill="white" />
+  
+  <!-- Cejas -->
+  <path d="M170 103 Q180 98 190 103" fill="none" stroke="#523B29" stroke-width="2" />
+  <path d="M210 103 Q220 98 230 103" fill="none" stroke="#523B29" stroke-width="2" />
+  
+  <!-- Nariz -->
+  <path d="M200 115 L200 130 Q205 135 200 135" fill="none" stroke="#e8a87d" stroke-width="2" />
+  
+  <!-- Boca -->
+  <path d="M185 145 Q200 155 215 145" fill="none" stroke="#e8a87d" stroke-width="2" />
+  
+  <!-- Aretes -->
+  <circle cx="165" cy="125" r="3" fill="gold" />
+  <circle cx="235" cy="125" r="3" fill="gold" />
+  
+  <!-- Gafas -->
+  <rect x="165" y="105" rx="6" ry="10" width="30" height="20" stroke="#523B29" stroke-width="2" fill="none" />
+  <rect x="205" y="105" rx="6" ry="10" width="30" height="20" stroke="#523B29" stroke-width="2" fill="none" />
+  <line x1="195" y1="115" x2="205" y2="115" stroke="#523B29" stroke-width="2" />
+  <line x1="235" y1="110" x2="245" y2="105" stroke="#523B29" stroke-width="2" />
+  <line x1="165" y1="110" x2="155" y2="105" stroke="#523B29" stroke-width="2" />
+
+  <!-- Detalles profesionales -->
+  <rect x="30" y="20" rx="10" ry="10" width="120" height="30" fill="#6c63ff" opacity="0.8" />
+  <text x="45" y="40" font-family="Arial" font-size="12" fill="white">Dra. Ana Gómez</text>
+  
+  <rect x="30" y="55" rx="8" ry="8" width="90" height="20" fill="#6c63ff" opacity="0.6" />
+  <text x="40" y="70" font-family="Arial" font-size="10" fill="white">Psicología</text>
+  
+  <!-- Rating -->
+  <g transform="translate(250, 30)">
+    <rect rx="15" ry="15" width="100" height="30" fill="#ffc107" opacity="0.8" />
+    <text x="25" y="20" font-family="Arial" font-size="14" fill="white">★★★★★</text>
+  </g>
+</svg> 

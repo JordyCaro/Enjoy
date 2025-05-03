@@ -1,13 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Enjoy</title>
+  <title>Enjoy - Bienestar emocional</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Enjoy es un espacio seguro para hablar, conectar y sentirte mejor, un paso a la vez.">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Añadir script para inicialización del tema -->
+  <script>
+    // Script para inicializar el tema antes de que Angular cargue
+    (function() {
+      if (typeof window !== 'undefined') {
+        // Verificar tema guardado o preferencia del sistema
+        try {
+          const savedTheme = localStorage.getItem('enjoyApp-theme');
+          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          // Aplicar tema oscuro si está guardado como 'dark' o si el sistema prefiere oscuro y no hay tema guardado
+          if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+          
+          // Verificar idioma guardado o preferencia del navegador
+          const savedLang = localStorage.getItem('enjoyApp-language');
+          if (savedLang) {
+            document.documentElement.lang = savedLang;
+          } else if (navigator && navigator.language) {
+            const browserLang = navigator.language.split('-')[0];
+            document.documentElement.lang = (browserLang === 'es') ? 'es' : 'en';
+          }
+        } catch (e) {
+          console.error('Error initializing theme/language:', e);
+        }
+      }
+    })();
+  </script>
 </head>
-<body>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
   <app-root></app-root>
 </body>
 </html>
