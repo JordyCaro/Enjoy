@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <style>
+    .st0{fill:#F3F9FF}.st1{fill:#E0F2FE}.st2{fill:#0EA5E9}.st3{fill:#7DD3FC}.st4{fill:#0284C7}.st5{fill:#FFF}
+  </style>
+  <rect class="st0" width="400" height="300"/>
+  <circle class="st1" cx="200" cy="150" r="100"/>
+  <circle class="st3" cx="200" cy="150" r="70" opacity=".7">
+    <animate attributeName="r" values="70;90;70" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values=".7;.3;.7" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="st2" cx="200" cy="150" r="40" opacity=".5">
+    <animate attributeName="r" values="40;60;40" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values=".5;.2;.5" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <g>
+    <path class="st4" d="M195 110v80M160 150h80" stroke-width="4" stroke-linecap="round" stroke="#0284C7"/>
+    <text x="200" y="230" text-anchor="middle" font-family="Arial" font-size="16" fill="#0284C7">RESPIRA</text>
+  </g>
+</svg> 

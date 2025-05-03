@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <style>
+    .st0{fill:#F0FDF4}.st1{fill:#DCFCE7}.st2{fill:#22C55E}.st3{fill:#16A34A}.st4{fill:#FFF}
+  </style>
+  <rect class="st0" width="400" height="300"/>
+  
+  <!-- Fondo -->
+  <path class="st1" d="M0,200 Q100,170 200,200 Q300,230 400,200 L400,300 L0,300 Z"/>
+  
+  <!-- Persona meditando -->
+  <g transform="translate(200,150)">
+    <!-- Cuerpo -->
+    <path class="st3" d="M0,-40 C20,-40 30,-20 30,0 C30,20 20,40 0,40 C-20,40 -30,20 -30,0 C-30,-20 -20,-40 0,-40 Z"/>
+    
+    <!-- Cabeza -->
+    <circle class="st3" cx="0" cy="-60" r="20"/>
+    
+    <!-- Piernas cruzadas -->
+    <path class="st2" d="M-30,40 C-20,30 -10,30 0,40 C10,30 20,30 30,40 C20,60 10,60 0,50 C-10,60 -20,60 -30,40 Z"/>
+    
+    <!-- Brazos -->
+    <path class="st2" d="M-30,0 C-40,-10 -45,-5 -50,0 C-45,5 -40,10 -30,0 Z"/>
+    <path class="st2" d="M30,0 C40,-10 45,-5 50,0 C45,5 40,10 30,0 Z"/>
+    
+    <!-- Cara simple -->
+    <circle class="st4" cx="-7" cy="-65" r="3"/>
+    <circle class="st4" cx="7" cy="-65" r="3"/>
+    <path d="M-5,-50 Q0,-45 5,-50" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+    
+    <!-- Ondas de meditación -->
+    <g opacity="0.6">
+      <circle cx="0" cy="-20" r="40" fill="none" stroke="#22C55E" stroke-width="2">
+        <animate attributeName="r" values="40;60;40" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="0" cy="-20" r="60" fill="none" stroke="#22C55E" stroke-width="2">
+        <animate attributeName="r" values="60;80;60" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0.1;0.4" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="0" cy="-20" r="80" fill="none" stroke="#22C55E" stroke-width="2">
+        <animate attributeName="r" values="80;100;80" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.2;0.1;0.2" dur="5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+  
+  <text x="200" y="270" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#16A34A">MEDITACIÓN GUIADA</text>
+</svg> 

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <style>
+    .st0{fill:#FFF1F2}.st1{fill:#FECDD3}.st2{fill:#F43F5E}.st3{fill:#E11D48}.st4{fill:#FFF}
+  </style>
+  <rect class="st0" width="400" height="300"/>
+  <path class="st1" d="M50,200 Q200,250 350,200 L350,300 L50,300 Z"/>
+  
+  <g transform="translate(180,110)">
+    <circle class="st3" cx="0" cy="0" r="50"/>
+    <circle class="st4" cx="-15" cy="-10" r="10"/>
+    <circle class="st4" cx="15" cy="-10" r="10"/>
+    <path d="M-20,20 Q0,10 20,20" stroke="#FFF" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <g transform="translate(100,170)">
+    <circle class="st2" cx="0" cy="0" r="30"/>
+    <circle class="st4" cx="-8" cy="-6" r="6"/>
+    <circle class="st4" cx="8" cy="-6" r="6"/>
+    <path d="M-12,10 Q0,0 12,10" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <g transform="translate(300,150)">
+    <circle class="st2" cx="0" cy="0" r="25"/>
+    <circle class="st4" cx="-7" cy="-5" r="5"/>
+    <circle class="st4" cx="7" cy="-5" r="5"/>
+    <path d="M-10,8 Q0,-2 10,8" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <text x="200" y="280" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#E11D48">DÍAS MEJORES VENDRÁN</text>
+</svg> 

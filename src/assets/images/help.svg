@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <style>
+    .st0{fill:#E0F2FE}.st1{fill:#0EA5E9}.st2{fill:#0284C7}.st3{fill:#7DD3FC}.st4{fill:#FFF}
+  </style>
+  
+  <!-- Fondo -->
+  <rect class="st0" width="400" height="300" rx="20" ry="20"/>
+  
+  <!-- Manos conectándose -->
+  <g transform="translate(200, 150)">
+    <!-- Mano 1 -->
+    <path class="st1" d="M-100,-20 C-80,-40 -60,-30 -40,-20 C-50,-10 -60,0 -80,-5 C-90,-10 -100,-10 -100,-20 Z"/>
+    <circle class="st4" cx="-70" cy="-25" r="8"/>
+    
+    <!-- Mano 2 -->
+    <path class="st2" d="M100,20 C80,40 60,30 40,20 C50,10 60,0 80,5 C90,10 100,10 100,20 Z"/>
+    <circle class="st4" cx="70" cy="25" r="8"/>
+    
+    <!-- Corazón conectando las manos -->
+    <path class="st3" d="M0,0 C-10,-30 -40,-30 -40,0 C-40,30 0,40 0,40 C0,40 40,30 40,0 C40,-30 10,-30 0,0 Z">
+      <animate attributeName="d" values="
+        M0,0 C-10,-30 -40,-30 -40,0 C-40,30 0,40 0,40 C0,40 40,30 40,0 C40,-30 10,-30 0,0 Z;
+        M0,-5 C-10,-35 -40,-35 -40,-5 C-40,25 0,35 0,35 C0,35 40,25 40,-5 C40,-35 10,-35 0,-5 Z;
+        M0,0 C-10,-30 -40,-30 -40,0 C-40,30 0,40 0,40 C0,40 40,30 40,0 C40,-30 10,-30 0,0 Z"
+        dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Círculos decorativos -->
+  <circle class="st3" cx="50" cy="50" r="15" opacity="0.5"/>
+  <circle class="st1" cx="350" cy="80" r="10" opacity="0.5"/>
+  <circle class="st1" cx="30" cy="250" r="20" opacity="0.3"/>
+  <circle class="st3" cx="370" cy="220" r="25" opacity="0.3"/>
+  
+  <!-- Líneas decorativas -->
+  <path class="st2" d="M100,40 L150,40" stroke-width="3" stroke="#0284C7" opacity="0.5"/>
+  <path class="st2" d="M250,260 L320,260" stroke-width="3" stroke="#0284C7" opacity="0.5"/>
+  <path class="st2" d="M50,200 L50,240" stroke-width="3" stroke="#0284C7" opacity="0.5"/>
+  <path class="st2" d="M350,160 L350,200" stroke-width="3" stroke="#0284C7" opacity="0.5"/>
+  
+  <text x="200" y="250" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#0284C7">ESTAMOS CONTIGO</text>
+</svg> 

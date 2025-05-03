@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="#f3f4f6"/>
+  
+  <!-- Abstract shape background -->
+  <path d="M0 180 Q50 120 100 150 T200 120 L200 200 L0 200 Z" fill="#9333ea" opacity="0.2"/>
+  
+  <!-- Face -->
+  <circle cx="100" cy="85" r="40" fill="#ffffff" stroke="#9333ea" stroke-width="2"/>
+  
+  <!-- Abstract elements -->
+  <circle cx="70" cy="75" r="5" fill="#9333ea" opacity="0.7"/>
+  <circle cx="130" cy="75" r="5" fill="#9333ea" opacity="0.7"/>
+  <circle cx="100" cy="105" r="4" fill="#9333ea" opacity="0.7"/>
+  
+  <!-- Decorative elements -->
+  <path d="M75 90 Q100 105 125 90" fill="none" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Abstract pattern -->
+  <circle cx="40" cy="40" r="15" fill="#9333ea" opacity="0.2"/>
+  <circle cx="160" cy="40" r="15" fill="#9333ea" opacity="0.2"/>
+  <circle cx="40" cy="160" r="15" fill="#9333ea" opacity="0.2"/>
+  <circle cx="160" cy="160" r="15" fill="#9333ea" opacity="0.2"/>
+  
+  <!-- Hair -->
+  <path d="M60 60 Q100 0 140 60" fill="#9333ea" opacity="0.6"/>
+  
+  <!-- Abstract lines -->
+  <line x1="30" y1="130" x2="50" y2="150" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+  <line x1="170" y1="130" x2="150" y2="150" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="30" cy="100" r="5" fill="#9333ea" opacity="0.4"/>
+  <circle cx="170" cy="100" r="5" fill="#9333ea" opacity="0.4"/>
+  <circle cx="100" cy="30" r="5" fill="#9333ea" opacity="0.4"/>
+  <circle cx="100" cy="170" r="5" fill="#9333ea" opacity="0.4"/>
+</svg> 
