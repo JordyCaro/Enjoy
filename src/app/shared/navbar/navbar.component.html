@@ -1,0 +1,135 @@
+<nav class="bg-white shadow dark:bg-gray-800">
+  <div class="container mx-auto px-6 py-3">
+    <div class="md:flex md:items-center md:justify-between">
+      <div class="flex items-center justify-between">
+        <div class="text-xl font-semibold text-gray-700">
+          <a class="text-2xl font-bold flex items-center text-gray-800 dark:text-white lg:text-2xl" routerLink="/">
+            <span class="text-primary-600 mr-2">Enjoy</span>
+            <span class="text-sm text-gray-600 dark:text-gray-300">{{ translate('myWellbeing') }}</span>
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="flex md:hidden">
+          <button
+            type="button"
+            class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+            aria-label="toggle menu"
+            (click)="toggleMenu()"
+          >
+            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+              <path
+                fill-rule="evenodd"
+                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+      <div
+        [ngClass]="isOpen ? 'block' : 'hidden'"
+        class="flex-1 md:flex md:items-center md:justify-between"
+      >
+        <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
+          <a
+            routerLink="/"
+            routerLinkActive="text-primary-600 dark:text-primary-400"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >{{ translate('home') }}</a
+          >
+          <a
+            routerLink="/resources"
+            routerLinkActive="text-primary-600 dark:text-primary-400"
+            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >{{ translate('resources') }}</a
+          >
+          <a
+            routerLink="/community"
+            routerLinkActive="text-primary-600 dark:text-primary-400"
+            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >{{ translate('community') }}</a
+          >
+          <a
+            routerLink="/chat"
+            routerLinkActive="text-primary-600 dark:text-primary-400"
+            class="px-2 py-1 mx-2 mt-2 flex items-center text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+            <span>{{ translate('chat') }}</span>
+            <span class="flex h-2 w-2 relative ml-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+          </a>
+          <a
+            routerLink="/therapists"
+            routerLinkActive="text-primary-600 dark:text-primary-400"
+            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >{{ translate('findTherapist') }}</a
+          >
+        </div>
+
+        <div class="flex items-center mt-4 md:mt-0">
+          <!-- Idioma -->
+          <button
+            class="text-gray-600 mx-2 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
+            aria-label="Cambiar idioma"
+            (click)="toggleLanguage()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+          </button>
+          
+          <!-- Tema -->
+          <button
+            class="text-gray-600 mx-2 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
+            aria-label="Cambiar tema"
+            (click)="toggleTheme()"
+          >
+            <svg *ngIf="currentTheme === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <svg *ngIf="currentTheme === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </button>
+
+          <div class="flex items-center">
+            <div class="relative">
+              <button
+                type="button"
+                class="flex items-center focus:outline-none"
+                aria-label="toggle profile dropdown"
+                (click)="toggleProfileMenu()"
+              >
+                <div class="w-8 h-8 overflow-hidden border-2 border-gray-300 rounded-full">
+                  <a routerLink="/profile">
+                    <img
+                      src="assets/images/profile.svg"
+                      class="object-cover w-full h-full"
+                      alt="avatar"
+                    />
+                  </a>
+                </div>
+              </button>
+              
+              <!-- Dropdown menu -->
+              <div *ngIf="isProfileMenuOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 dark:bg-gray-800">
+                <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('profile') }}</a>
+                <a routerLink="/progress" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('progress') }}</a>
+                <div class="border-t border-gray-100 dark:border-gray-700"></div>
+                <a routerLink="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('login') }}</a>
+                <a routerLink="/register" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('signUp') }}</a>
+                <div class="border-t border-gray-100 dark:border-gray-700"></div>
+                <a routerLink="/chat?mode=anonymous" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('anonymousMode') }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> 

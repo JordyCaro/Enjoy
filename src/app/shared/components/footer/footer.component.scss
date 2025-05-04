@@ -1,0 +1,18 @@
+/* Estilos para el footer */
+.content-container {
+  margin-bottom: 1rem;
+}
+
+a, button {
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 768px) {
+  .flex-col-mobile {
+    flex-direction: column;
+  }
+} 
