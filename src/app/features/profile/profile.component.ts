@@ -121,6 +121,57 @@ import { FormsModule } from '@angular/forms';
                 </div>
               </div>
               
+              <!-- Diario Personal -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                  <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Mi diario personal</h2>
+                  <a routerLink="/journal" class="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center">
+                    Ver todo
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+                
+                <div class="space-y-4">
+                  <!-- Última entrada de diario -->
+                  <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center">
+                        <span class="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-xs mr-2">
+                          Triste
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                          Ayer, 03:12 AM
+                        </span>
+                      </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm line-clamp-3">
+                      No puedo dormir. Son las 3 am y mi mente no deja de dar vueltas. Me siento tan solo en este momento...
+                    </p>
+                    <div class="flex justify-between items-center mt-3">
+                      <div class="flex space-x-1">
+                        <span class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs">
+                          #insomnio
+                        </span>
+                        <span class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs">
+                          #noche
+                        </span>
+                      </div>
+                      <a routerLink="/journal" class="text-primary-600 hover:text-primary-700 text-xs font-medium">
+                        Continuar leyendo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mt-4">
+                  <a routerLink="/journal" class="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center font-medium py-2 px-4 rounded-md">
+                    Nueva entrada en mi diario
+                  </a>
+                </div>
+              </div>
+              
               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Mis actividades recientes</h2>
                 
@@ -224,9 +275,14 @@ import { FormsModule } from '@angular/forms';
               <div class="bg-gradient-to-br from-primary-500 to-secondary-600 rounded-lg shadow-lg p-6 text-white">
                 <h2 class="text-xl font-semibold mb-3">¿Cómo te sientes hoy?</h2>
                 <p class="mb-4">Hablar con alguien puede ayudarte a procesar tus emociones.</p>
-                <a routerLink="/chat" class="block text-center bg-white text-primary-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-md">
-                  Hablar con asistente IA
-                </a>
+                <div class="space-y-2">
+                  <a routerLink="/chat" class="block text-center bg-white text-primary-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-md">
+                    Hablar con Mia
+                  </a>
+                  <a routerLink="/journal" class="block text-center bg-black/30 hover:bg-black/40 text-white font-medium py-2 px-4 rounded-md">
+                    Escribir en mi diario
+                  </a>
+                </div>
               </div>
             </div>
           </div>

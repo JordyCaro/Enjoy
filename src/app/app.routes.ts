@@ -1,5 +1,11 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { HomeComponent } from './features/home/home.component';
+import { ChatComponent } from './features/chat/chat.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { ResourcesComponent } from './features/resources/resources.component';
+import { CommunityComponent } from './features/community/community.component';
+import { JournalComponent } from './features/journal/journal.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +31,18 @@ export const routes: Routes = [
   {
     path: 'community',
     loadComponent: () => import('./features/community/community.component').then(m => m.CommunityComponent)
+  },
+  {
+    path: 'forum',
+    loadComponent: () => import('./features/forum/forum.component').then(m => m.ForumComponent)
+  },
+  {
+    path: 'forum/post/:id',
+    loadComponent: () => import('./features/forum/forum.component').then(m => m.ForumComponent)
+  },
+  {
+    path: 'journal',
+    loadComponent: () => import('./features/journal/journal.component').then(m => m.JournalComponent)
   },
   {
     path: 'profile',

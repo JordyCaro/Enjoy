@@ -1,134 +1,141 @@
-<nav class="bg-white shadow dark:bg-gray-800">
+<nav class="bg-gray-950 text-white">
   <div class="container mx-auto px-6 py-3">
-    <div class="md:flex md:items-center md:justify-between">
-      <div class="flex items-center justify-between">
-        <div class="text-xl font-semibold text-gray-700">
-          <a class="text-2xl font-bold flex items-center text-gray-800 dark:text-white lg:text-2xl" routerLink="/">
-            <span class="text-primary-600 mr-2">Enjoy</span>
-            <span class="text-sm text-gray-600 dark:text-gray-300">{{ translate('myWellbeing') }}</span>
-          </a>
-        </div>
-
-        <!-- Mobile menu button -->
-        <div class="flex md:hidden">
-          <button
-            type="button"
-            class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
-            aria-label="toggle menu"
-            (click)="toggleMenu()"
-          >
-            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
-              <path
-                fill-rule="evenodd"
-                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-              ></path>
-            </svg>
-          </button>
-        </div>
+    <div class="flex justify-between items-center">
+      <div class="flex items-center">
+        <a class="text-2xl font-bold flex items-center text-white" routerLink="/">
+          <span class="text-primary-600 mr-2">enjoy</span>
+        </a>
       </div>
 
-      <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-      <div
-        [ngClass]="isOpen ? 'block' : 'hidden'"
-        class="flex-1 md:flex md:items-center md:justify-between"
-      >
-        <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
-          <a
-            routerLink="/"
-            routerLinkActive="text-primary-600 dark:text-primary-400"
-            [routerLinkActiveOptions]="{exact: true}"
-            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >{{ translate('home') }}</a
-          >
-          <a
-            routerLink="/resources"
-            routerLinkActive="text-primary-600 dark:text-primary-400"
-            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >{{ translate('resources') }}</a
-          >
-          <a
-            routerLink="/community"
-            routerLinkActive="text-primary-600 dark:text-primary-400"
-            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >{{ translate('community') }}</a
-          >
-          <a
-            routerLink="/chat"
-            routerLinkActive="text-primary-600 dark:text-primary-400"
-            class="px-2 py-1 mx-2 mt-2 flex items-center text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-            <span>{{ translate('chat') }}</span>
-            <span class="flex h-2 w-2 relative ml-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-          </a>
-          <a
-            routerLink="/therapists"
-            routerLinkActive="text-primary-600 dark:text-primary-400"
-            class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-300 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >{{ translate('findTherapist') }}</a
-          >
+      <!-- Links centrales del menú -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a 
+          routerLink="/" 
+          routerLinkActive="text-primary-400" 
+          [routerLinkActiveOptions]="{exact: true}"
+          class="px-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-primary-400"
+        >
+          Inicio
+        </a>
+        <a 
+          routerLink="/resources" 
+          routerLinkActive="text-primary-400"
+          class="px-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-primary-400"
+        >
+          Recursos
+        </a>
+        <a 
+          routerLink="/forum" 
+          routerLinkActive="text-primary-400"
+          class="px-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-primary-400"
+        >
+          Foro
+        </a>
+        <a 
+          routerLink="/chat" 
+          routerLinkActive="text-primary-400"
+          class="px-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-primary-400"
+        >
+          Chat
+        </a>
+        <a 
+          routerLink="/therapists" 
+          routerLinkActive="text-primary-400"
+          class="px-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-primary-400"
+        >
+          Terapeutas
+        </a>
+      </div>
+
+      <!-- Botones de la derecha -->
+      <div class="flex items-center space-x-4">
+        <!-- Botón de idioma -->
+        <div class="mr-2 flex items-center">
+          <span class="text-gray-400">ES</span>
         </div>
 
-        <div class="flex items-center mt-4 md:mt-0">
-          <!-- Idioma -->
+        <!-- Botón de Iniciar sesión -->
+        <a 
+          routerLink="/login" 
+          class="hidden md:inline-block text-sm font-medium text-primary-300 hover:text-primary-200 px-3 py-1"
+        >
+          Iniciar sesión
+        </a>
+
+
+
+        <!-- Avatar/Perfil -->
+        <div class="relative">
           <button
-            class="text-gray-600 mx-2 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
-            aria-label="Cambiar idioma"
-            (click)="toggleLanguage()"
+            type="button"
+            class="flex items-center focus:outline-none"
+            aria-label="toggle profile dropdown"
+            (click)="toggleProfileMenu()"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-            </svg>
+            <div class="w-9 h-9 overflow-hidden border-2 border-primary-500 rounded-full hover:border-primary-400 transition-colors">
+              <a routerLink="/profile">
+                <img
+                  src="assets/images/profile.svg"
+                  class="object-cover w-full h-full"
+                  alt="avatar"
+                />
+              </a>
+            </div>
           </button>
           
-          <!-- Tema -->
-          <button
-            class="text-gray-600 mx-2 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
-            aria-label="Cambiar tema"
-            (click)="toggleTheme()"
-          >
-            <svg *ngIf="currentTheme === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-            <svg *ngIf="currentTheme === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </button>
-
-          <div class="flex items-center">
-            <div class="relative">
-              <button
-                type="button"
-                class="flex items-center focus:outline-none"
-                aria-label="toggle profile dropdown"
-                (click)="toggleProfileMenu()"
-              >
-                <div class="w-8 h-8 overflow-hidden border-2 border-gray-300 rounded-full">
-                  <a routerLink="/profile">
-                    <img
-                      src="assets/images/profile.svg"
-                      class="object-cover w-full h-full"
-                      alt="avatar"
-                    />
-                  </a>
-                </div>
-              </button>
-              
-              <!-- Dropdown menu -->
-              <div *ngIf="isProfileMenuOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 dark:bg-gray-800">
-                <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('profile') }}</a>
-                <a routerLink="/progress" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('progress') }}</a>
-                <div class="border-t border-gray-100 dark:border-gray-700"></div>
-                <a routerLink="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('login') }}</a>
-                <a routerLink="/register" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('signUp') }}</a>
-                <div class="border-t border-gray-100 dark:border-gray-700"></div>
-                <a routerLink="/chat?mode=anonymous" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">{{ translate('anonymousMode') }}</a>
-              </div>
-            </div>
+          <!-- Dropdown de perfil -->
+          <div *ngIf="isProfileMenuOpen" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-20">
+            <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Mi perfil</a>
+            <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Mi progreso</a>
+            <a routerLink="/journal" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Mi diario</a>
+            <div class="border-t border-gray-700"></div>
+            <a routerLink="/chat" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Hablar con Mia</a>
+            <a routerLink="/chat?mode=anonymous" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Modo anónimo</a>
           </div>
         </div>
+
+        <!-- Botón menú móvil -->
+        <button
+          type="button"
+          class="md:hidden text-white"
+          aria-label="toggle menu"
+          (click)="toggleMenu()"
+        >
+          <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+            <path
+              *ngIf="!isOpen"
+              fill-rule="evenodd"
+              d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+            ></path>
+            <path
+              *ngIf="isOpen"
+              fill-rule="evenodd"
+              d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div
+      [ngClass]="{'block': isOpen, 'hidden': !isOpen}"
+      class="md:hidden mt-3 pt-3 border-t border-gray-800"
+    >
+      <div class="flex flex-col space-y-2">
+        <a routerLink="/" class="text-white hover:text-primary-400 py-2">Inicio</a>
+        <a routerLink="/resources" class="text-white hover:text-primary-400 py-2">Recursos</a>
+        <a routerLink="/forum" class="text-white hover:text-primary-400 py-2">Foro</a>
+        <a routerLink="/chat" class="text-white hover:text-primary-400 py-2">Chat</a>
+        <a routerLink="/therapists" class="text-white hover:text-primary-400 py-2">Terapeutas</a>
+        <a routerLink="/journal" class="text-white hover:text-primary-400 py-2">Mi diario</a>
+        <a routerLink="/login" class="text-primary-300 hover:text-primary-200 py-2">Iniciar sesión</a>
+        <a routerLink="/chat" class="bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-lg mt-2 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          Hablar ahora
+        </a>
       </div>
     </div>
   </div>

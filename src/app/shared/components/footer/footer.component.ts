@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ThemeService } from '../../../core/services/theme.service';
-import { LanguageService } from '../../../core/services/language.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -11,32 +10,17 @@ import { LanguageService } from '../../../core/services/language.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent {
-  currentTheme: 'light' | 'dark' = 'light';
-  currentLanguage: 'es' | 'en' = 'es';
+export class FooterComponent implements OnInit {
+  currentYear: number = new Date().getFullYear();
 
-  constructor(
-    private themeService: ThemeService,
-    private languageService: LanguageService
-  ) {
-    this.themeService.currentTheme$.subscribe(theme => {
-      this.currentTheme = theme;
-    });
+  constructor(private router: Router) {}
 
-    this.languageService.currentLanguage$.subscribe(language => {
-      this.currentLanguage = language;
-    });
+  ngOnInit(): void {
+    // Inicializar el año actual
+    this.currentYear = new Date().getFullYear();
   }
 
-  toggleTheme() {
-    this.themeService.toggleTheme();
-  }
-
-  toggleLanguage() {
-    this.languageService.toggleLanguage();
-  }
-
-  translate(key: string): string {
-    return this.languageService.translate(key);
+  navigateToCommunity(): void {
+    this.router.navigate(['/community']);
   }
 } 

@@ -2,15 +2,14 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
-export type Theme = 'light' | 'dark';
+export type Theme = 'dark';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
   private themeKey = 'enjoyApp-theme';
-  private darkThemeMediaQuery: MediaQueryList | null = null;
-  private themeSubject = new BehaviorSubject<Theme>('light');
+  private themeSubject = new BehaviorSubject<Theme>('dark');
   private isBrowser: boolean;
   
   public currentTheme$ = this.themeSubject.asObservable();
@@ -19,43 +18,20 @@ export class ThemeService {
     this.isBrowser = isPlatformBrowser(this.platformId);
     
     if (this.isBrowser) {
-      this.darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       this.initTheme();
-      
-      this.darkThemeMediaQuery.addEventListener('change', e => {
-        if (!localStorage.getItem(this.themeKey)) {
-          const newTheme = e.matches ? 'dark' : 'light';
-          this.setTheme(newTheme, false);
-        }
-      });
     }
   }
 
   private initTheme(): void {
     if (!this.isBrowser) return;
-    
-    const theme = this.getCurrentTheme();
-    this.setTheme(theme, false);
-  }
-
-  private getCurrentTheme(): Theme {
-    if (!this.isBrowser) return 'light';
-    
-    const savedTheme = localStorage.getItem(this.themeKey) as Theme | null;
-    if (savedTheme) {
-      return savedTheme;
-    }
-    return this.darkThemeMediaQuery?.matches ? 'dark' : 'light';
+    this.setDarkTheme();
   }
 
   public setTheme(theme: Theme, saveToStorage = true): void {
     if (!this.isBrowser) return;
     
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    // Asegurar que siempre se aplique el tema oscuro
+    document.documentElement.classList.add('dark');
     
     this.themeSubject.next(theme);
     
@@ -64,11 +40,11 @@ export class ThemeService {
     }
   }
 
-  public toggleTheme(): void {
+  public setDarkTheme(): void {
     if (!this.isBrowser) return;
     
-    const currentTheme = this.themeSubject.value;
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    this.setTheme(newTheme);
+    document.documentElement.classList.add('dark');
+    this.themeSubject.next('dark');
+    localStorage.setItem(this.themeKey, 'dark');
   }
 } 
