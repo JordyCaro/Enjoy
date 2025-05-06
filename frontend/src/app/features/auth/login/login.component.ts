@@ -27,10 +27,10 @@ import { AuthService } from '../../../core/services/auth.service';
               
               <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Usuario o correo electrónico
+                  Correo electrónico
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
                   [(ngModel)]="email"
@@ -151,17 +151,13 @@ export class LoginComponent {
     this.isLoading = true;
     
     this.authService.login(this.email, this.password).subscribe({
-      next: (success) => {
+      next: (user) => {
         this.isLoading = false;
-        if (success) {
-          this.router.navigate(['/']);
-        } else {
-          this.error = 'Usuario o contraseña incorrectos. Intente con admin/admin';
-        }
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;
-        this.error = 'Error al iniciar sesión. Intente nuevamente más tarde.';
+        this.error = err.message || 'Error al iniciar sesión. Intente con admin/admin para modo de prueba.';
         console.error('Error de login:', err);
       }
     });

@@ -1,8 +1,15 @@
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { isPlatformBrowser } from '@angular/common';
+import { ApiService } from './api.service';
+
+interface AuthResponse {
+  access_token: string;
+  user: User;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +19,10 @@ export class AuthService {
   public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
   private platformId = inject(PLATFORM_ID);
   
-  // Usuario de prueba
-  private testUser: User = {
-    id: '1',
-    email: 'admin',
-    firstName: 'Admin',
-    lastName: 'Usuario',
-    role: 'admin',
-    createdAt: new Date()
-  };
-
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private apiService: ApiService
+  ) {
     // Verificar si hay un usuario guardado en localStorage
     this.loadUserFromStorage();
   }
@@ -31,18 +31,38 @@ export class AuthService {
     // Solo intentar acceder a localStorage en el navegador
     if (isPlatformBrowser(this.platformId)) {
       const storedUser = localStorage.getItem('currentUser');
-      if (storedUser) {
+      const token = localStorage.getItem('access_token');
+      
+      if (storedUser && token) {
         try {
           const user = JSON.parse(storedUser);
           // Convertir la fecha string a objeto Date
-          user.createdAt = new Date(user.createdAt);
+          if (typeof user.createdAt === 'string') {
+            user.createdAt = new Date(user.createdAt);
+          }
           this.currentUserSubject.next(user);
         } catch (error) {
           console.error('Error al cargar usuario desde localStorage', error);
-          localStorage.removeItem('currentUser');
+          this.clearAuthData();
         }
       }
     }
+  }
+
+  private clearAuthData(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('access_token');
+    }
+    this.currentUserSubject.next(null);
+  }
+
+  private saveAuthData(response: AuthResponse): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('currentUser', JSON.stringify(response.user));
+    }
+    this.currentUserSubject.next(response.user);
   }
 
   public get currentUserValue(): User | null {
@@ -50,25 +70,41 @@ export class AuthService {
   }
 
   public get isLoggedIn(): boolean {
-    return !!this.currentUserValue;
+    return !!this.currentUserValue && !!localStorage.getItem('access_token');
   }
 
-  login(username: string, password: string): Observable<boolean> {
-    // Verificar credenciales del usuario de prueba
-    if (username === 'admin' && password === 'admin') {
-      // Login exitoso con usuario de prueba
-      this.currentUserSubject.next(this.testUser);
+  login(email: string, password: string): Observable<User> {
+    // Si estamos en modo de desarrollo, permitir acceder con credenciales de prueba
+    if (email === 'admin' && password === 'admin') {
+      // Crear un usuario administrador ficticio para desarrollo
+      const testUser: User = {
+        id: '1',
+        email: 'admin@example.com',
+        firstName: 'Admin',
+        lastName: 'Usuario',
+        role: 'admin',
+        createdAt: new Date()
+      };
       
-      // Solo guardar en localStorage en el navegador
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('currentUser', JSON.stringify(this.testUser));
-      }
+      const mockResponse: AuthResponse = {
+        access_token: 'fake-jwt-token',
+        user: testUser
+      };
       
-      return of(true);
+      this.saveAuthData(mockResponse);
+      return of(testUser);
     }
     
-    // Credenciales incorrectas
-    return of(false);
+    // En modo de producción, conectar con el backend real
+    return this.apiService.post<AuthResponse>('auth/login', { email, password })
+      .pipe(
+        tap(response => this.saveAuthData(response)),
+        map(response => response.user),
+        catchError(error => {
+          console.error('Error en login:', error);
+          return throwError(() => new Error('Credenciales incorrectas'));
+        })
+      );
   }
 
   register(userData: {
@@ -76,35 +112,20 @@ export class AuthService {
     lastName: string;
     email: string;
     password: string;
-  }): Observable<boolean> {
-    // En una aplicación real, aquí enviaríamos los datos al backend
-    // Para este ejemplo, permitimos el registro exitoso siempre
-    const newUser: User = {
-      id: Date.now().toString(), // ID único basado en timestamp
-      email: userData.email,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      role: 'user',
-      createdAt: new Date()
-    };
-    
-    this.currentUserSubject.next(newUser);
-    
-    // Solo guardar en localStorage en el navegador
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('currentUser', JSON.stringify(newUser));
-    }
-    
-    return of(true);
+  }): Observable<User> {
+    return this.apiService.post<AuthResponse>('auth/register', userData)
+      .pipe(
+        tap(response => this.saveAuthData(response)),
+        map(response => response.user),
+        catchError(error => {
+          console.error('Error en registro:', error);
+          return throwError(() => new Error('No se pudo completar el registro'));
+        })
+      );
   }
 
   logout(): void {
-    // Solo intentar eliminar de localStorage en el navegador
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('currentUser');
-    }
-    
-    this.currentUserSubject.next(null);
+    this.clearAuthData();
     this.router.navigate(['/']);
   }
 } 

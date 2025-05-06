@@ -228,17 +228,13 @@ export class RegisterComponent {
       email: this.email,
       password: this.password
     }).subscribe({
-      next: (success) => {
+      next: (user) => {
         this.isLoading = false;
-        if (success) {
-          this.router.navigate(['/']);
-        } else {
-          this.error = 'Error al registrar usuario. Intente nuevamente.';
-        }
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;
-        this.error = 'Error al conectar con el servidor. Intente nuevamente más tarde.';
+        this.error = err.message || 'Error al registrar usuario. Intente nuevamente.';
         console.error('Error de registro:', err);
       }
     });
