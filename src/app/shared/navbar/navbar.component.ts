@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ThemeService } from '../../core/services/theme.service';
 import { UserProgressService } from '../../core/services/user-progress.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,15 +15,19 @@ import { UserProgressService } from '../../core/services/user-progress.service';
 export class NavbarComponent implements OnInit {
   isOpen = false;
   isProfileMenuOpen = false;
+  private platformId = inject(PLATFORM_ID);
 
   constructor(
     private themeService: ThemeService,
-    private userProgressService: UserProgressService
+    private userProgressService: UserProgressService,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
     // Establecer modo oscuro siempre
-    this.themeService.setDarkTheme();
+    if (isPlatformBrowser(this.platformId)) {
+      this.themeService.setDarkTheme();
+    }
   }
 
   toggleMenu(): void {
@@ -31,6 +36,11 @@ export class NavbarComponent implements OnInit {
 
   toggleProfileMenu(): void {
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
+  }
+  
+  logout(): void {
+    this.isProfileMenuOpen = false;
+    this.authService.logout();
   }
 }
  

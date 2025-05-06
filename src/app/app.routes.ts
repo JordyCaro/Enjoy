@@ -42,11 +42,13 @@ export const routes: Routes = [
   },
   {
     path: 'journal',
-    loadComponent: () => import('./features/journal/journal.component').then(m => m.JournalComponent)
+    loadComponent: () => import('./features/journal/journal.component').then(m => m.JournalComponent),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent)
+    loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [AuthGuard]
   },
   {
     path: 'therapists',

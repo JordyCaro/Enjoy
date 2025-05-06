@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +21,22 @@ import { FormsModule } from '@angular/forms';
             </div>
             
             <form class="space-y-6" (submit)="login($event)">
+              <div *ngIf="error" class="p-3 bg-red-100 text-red-700 rounded-md text-sm">
+                {{ error }}
+              </div>
+              
               <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Correo electrónico
+                  Usuario o correo electrónico
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   id="email"
                   name="email"
                   [(ngModel)]="email"
                   required
                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
-                  placeholder="tu@email.com"
+                  placeholder="admin"
                 />
               </div>
               
@@ -51,7 +56,7 @@ import { FormsModule } from '@angular/forms';
                   [(ngModel)]="password"
                   required
                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
-                  placeholder="********"
+                  placeholder="admin"
                 />
               </div>
               
@@ -71,9 +76,11 @@ import { FormsModule } from '@angular/forms';
               <div>
                 <button
                   type="submit"
-                  class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                  [disabled]="isLoading"
+                  class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Iniciar sesión
+                  <span *ngIf="isLoading">Cargando...</span>
+                  <span *ngIf="!isLoading">Iniciar sesión</span>
                 </button>
               </div>
             </form>
@@ -130,10 +137,33 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
+  isLoading: boolean = false;
+  error: string | null = null;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   login(event: Event) {
     event.preventDefault();
-    console.log('Login con:', this.email, this.password, this.rememberMe);
-    // Aquí iría la lógica de autenticación
+    this.error = null;
+    this.isLoading = true;
+    
+    this.authService.login(this.email, this.password).subscribe({
+      next: (success) => {
+        this.isLoading = false;
+        if (success) {
+          this.router.navigate(['/']);
+        } else {
+          this.error = 'Usuario o contraseña incorrectos. Intente con admin/admin';
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.error = 'Error al iniciar sesión. Intente nuevamente más tarde.';
+        console.error('Error de login:', err);
+      }
+    });
   }
 } 

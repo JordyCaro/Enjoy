@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -32,14 +34,28 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
               >
                 Hablar con Mia
               </a>
-              <a 
-                routerLink="/journal" 
-                routerLinkActive="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" 
-                [routerLinkActiveOptions]="{exact: true}"
-                class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                Mi diario
-              </a>
+              
+              <!-- Elementos que requieren autenticación -->
+              <ng-container *ngIf="authService.isLoggedIn">
+                <a 
+                  routerLink="/journal" 
+                  routerLinkActive="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" 
+                  [routerLinkActiveOptions]="{exact: true}"
+                  class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  Mi diario
+                </a>
+                <a 
+                  routerLink="/therapists" 
+                  routerLinkActive="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" 
+                  [routerLinkActiveOptions]="{exact: true}"
+                  class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  Terapeutas
+                </a>
+              </ng-container>
+              
+              <!-- Siempre visible -->
               <a 
                 routerLink="/resources" 
                 routerLinkActive="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" 
@@ -73,18 +89,40 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
               </svg>
             </button>
             
-            <!-- Perfil y menú desplegable -->
-            <div class="ml-3 relative">
+            <!-- Botones de iniciar sesión/registrarse (solo visibles si no hay sesión) -->
+            <div *ngIf="!authService.isLoggedIn" class="hidden md:flex items-center ml-3 space-x-2">
+              <a 
+                routerLink="/login" 
+                class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Iniciar sesión
+              </a>
+              <a 
+                routerLink="/register" 
+                class="px-3 py-2 rounded-md text-sm font-medium bg-primary-600 hover:bg-primary-700 text-white transition-colors"
+              >
+                Registrarse
+              </a>
+            </div>
+            
+            <!-- Perfil y menú desplegable - Solo visible si hay sesión -->
+            <div *ngIf="authService.isLoggedIn" class="ml-3 relative">
               <div>
                 <button 
                   (click)="toggleProfileMenu()"
                   class="flex items-center max-w-xs rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <span class="sr-only">Abrir menú de usuario</span>
-                  <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-700 dark:text-primary-300 mr-2">
+                      <span *ngIf="user">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</span>
+                      <svg *ngIf="!user" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {{ user?.firstName || 'Usuario' }}
+                    </span>
                   </div>
                 </button>
               </div>
@@ -104,19 +142,25 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
                   Mi perfil
                 </a>
                 <a 
-                  href="#" 
+                  routerLink="/journal"
                   (click)="closeProfileMenu()" 
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  Configuración
+                  Mi diario
                 </a>
                 <a 
                   href="#" 
                   (click)="closeProfileMenu()" 
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  Cerrar sesión
+                  Configuración
                 </a>
+                <button 
+                  (click)="logout()" 
+                  class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Cerrar sesión
+                </button>
               </div>
             </div>
             
@@ -170,15 +214,29 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
           >
             Hablar con Mia
           </a>
-          <a 
-            routerLink="/journal" 
-            (click)="closeMobileMenu()"
-            routerLinkActive="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300" 
-            [routerLinkActiveOptions]="{exact: true}"
-            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            Mi diario
-          </a>
+          
+          <!-- Elementos que requieren autenticación (móvil) -->
+          <ng-container *ngIf="authService.isLoggedIn">
+            <a 
+              routerLink="/journal" 
+              (click)="closeMobileMenu()"
+              routerLinkActive="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300" 
+              [routerLinkActiveOptions]="{exact: true}"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Mi diario
+            </a>
+            <a 
+              routerLink="/therapists" 
+              (click)="closeMobileMenu()"
+              routerLinkActive="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300" 
+              [routerLinkActiveOptions]="{exact: true}"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Terapeutas
+            </a>
+          </ng-container>
+          
           <a 
             routerLink="/resources" 
             (click)="closeMobileMenu()"
@@ -197,44 +255,87 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
           >
             Comunidad
           </a>
-          <a 
-            routerLink="/profile" 
-            (click)="closeMobileMenu()"
-            routerLinkActive="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300" 
-            [routerLinkActiveOptions]="{exact: true}"
-            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            Mi perfil
-          </a>
+          
+          <!-- Opciones de autenticación en móvil -->
+          <ng-container *ngIf="!authService.isLoggedIn">
+            <a 
+              routerLink="/login" 
+              (click)="closeMobileMenu()"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Iniciar sesión
+            </a>
+            <a 
+              routerLink="/register" 
+              (click)="closeMobileMenu()"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Registrarse
+            </a>
+          </ng-container>
+          
+          <!-- Opciones de perfil en móvil - Solo si hay sesión -->
+          <ng-container *ngIf="authService.isLoggedIn">
+            <a 
+              routerLink="/profile" 
+              (click)="closeMobileMenu()"
+              routerLinkActive="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300" 
+              [routerLinkActiveOptions]="{exact: true}"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Mi perfil
+            </a>
+            <button 
+              (click)="logout(); closeMobileMenu()"
+              class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              Cerrar sesión
+            </button>
+          </ng-container>
         </div>
       </div>
     </div>
   `,
   styles: ``
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isDarkMode = false;
   isProfileMenuOpen = false;
   isMobileMenuOpen = false;
+  user: User | null = null;
+  private platformId = inject(PLATFORM_ID);
+  
+  constructor(public authService: AuthService) {}
   
   ngOnInit() {
-    // Comprobar si el tema oscuro está habilitado
-    this.isDarkMode = localStorage.getItem('darkMode') === 'true' || 
-                      window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.updateTheme();
+    // Comprobar si el tema oscuro está habilitado solo en el navegador
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = localStorage.getItem('darkMode') === 'true' || 
+                        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.updateTheme();
+    }
+    
+    // Suscribirse a cambios en el usuario actual
+    this.authService.currentUser$.subscribe(user => {
+      this.user = user;
+    });
   }
   
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('darkMode', this.isDarkMode.toString());
-    this.updateTheme();
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('darkMode', this.isDarkMode.toString());
+      this.updateTheme();
+    }
   }
   
   updateTheme() {
-    if (this.isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   }
   
@@ -252,5 +353,10 @@ export class NavbarComponent {
   
   closeMobileMenu() {
     this.isMobileMenuOpen = false;
+  }
+  
+  logout() {
+    this.closeProfileMenu();
+    this.authService.logout();
   }
 } 

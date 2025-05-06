@@ -45,7 +45,7 @@ interface Message {
               </div>
             </div>
             
-            <div [ngClass]="isHomePreview ? 'h-[300px]' : 'h-[500px]'" class="overflow-y-auto p-6 space-y-4 bg-gray-900" #chatContainer>
+            <div [ngClass]="isHomePreview ? 'h-[300px]' : 'h-[500px]'" class="overflow-y-auto p-6 space-y-4 bg-gray-900 custom-scrollbar" #chatContainer>
               <!-- Mensajes -->
               <div *ngFor="let message of messages" class="flex items-start" [ngClass]="{'justify-end': message.isUser}">
                 <!-- Avatar Mia -->
@@ -147,7 +147,33 @@ interface Message {
       </div>
     </div>
   `,
-  styles: ``
+  styles: `
+    /* Estilos personalizados para el scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+      background-color: transparent;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: rgba(113, 113, 122, 0.4);
+      border-radius: 8px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(113, 113, 122, 0.7);
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background-color: transparent;
+      border-radius: 8px;
+    }
+    
+    /* Para Firefox */
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(113, 113, 122, 0.4) transparent;
+    }
+  `
 })
 export class ChatComponent implements OnInit {
   @Input() isHomePreview: boolean = false;

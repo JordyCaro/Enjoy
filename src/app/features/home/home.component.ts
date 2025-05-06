@@ -20,17 +20,13 @@ import { ChatComponent } from '../chat/chat.component';
             <p class="text-xl mb-10 text-gray-300">
               Un espacio seguro para compartir tus sentimientos, conectar con otros y encontrar apoyo en los momentos difíciles.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <a routerLink="/chat?mode=anonymous" class="btn bg-transparent border-2 border-white hover:bg-white/10 px-6 py-3 rounded-lg font-medium transition-all">
-                <span class="flex items-center justify-center">
-                  <span>Usar anónimamente</span>
-                </span>
-              </a>
-              <a routerLink="/register" class="btn bg-primary-600 hover:bg-primary-700 px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all">
-                <span class="flex items-center justify-center">
-                  <span>Registrarse</span>
-                </span>
-              </a>
+            <div class="bg-gray-800/60 p-6 rounded-xl mb-8 border border-gray-700">
+              <p class="text-lg text-gray-300 mb-4">
+                Puedes usarlo anónimamente o <a routerLink="/register" class="text-primary-400 hover:text-primary-300 font-medium">registrarte</a> para acceder a todas las funciones.
+              </p>
+              <p class="text-sm text-gray-400">
+                Tu privacidad es importante para nosotros. Tú decides cómo compartir tu historia.
+              </p>
             </div>
             <div class="mt-8">
               <a routerLink="/chat" class="inline-flex items-center justify-center w-full sm:w-auto bg-primary-600/20 text-white hover:bg-primary-600/30 px-10 py-4 rounded-xl font-medium transition-all">
