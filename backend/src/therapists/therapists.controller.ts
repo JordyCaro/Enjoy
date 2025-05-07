@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Request } f
 import { AuthGuard } from '@nestjs/passport';
 import { TherapistsService } from './therapists.service';
 import { Therapist } from './entities/therapist.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Terapeutas')
 @Controller('therapists')
 export class TherapistsController {
   constructor(private readonly therapistsService: TherapistsService) {}

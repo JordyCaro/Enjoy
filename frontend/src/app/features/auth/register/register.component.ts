@@ -230,7 +230,7 @@ export class RegisterComponent {
     }).subscribe({
       next: (user) => {
         this.isLoading = false;
-        this.router.navigate(['/']);
+          this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;

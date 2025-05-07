@@ -7,6 +7,13 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { TherapistsModule } from './therapists/therapists.module';
+import { GroupsModule } from './groups/groups.module';
+import { SessionsModule } from './sessions/sessions.module';
+import { StreaksModule } from './streaks/streaks.module';
+import { JournalsModule } from './journals/journals.module';
+import { ForumsModule } from './forums/forums.module';
+import { BlogsModule } from './blogs/blogs.module';
+import { ProfileModule } from './users/profile.module';
 
 @Module({
   imports: [
@@ -27,6 +34,13 @@ import { TherapistsModule } from './therapists/therapists.module';
     AuthModule,
     ChatModule,
     TherapistsModule,
+    GroupsModule,
+    SessionsModule,
+    StreaksModule,
+    JournalsModule,
+    ForumsModule,
+    BlogsModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

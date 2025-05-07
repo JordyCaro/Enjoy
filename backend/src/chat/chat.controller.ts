@@ -3,7 +3,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { ChatMessage } from './entities/chat-message.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Chat')
 @Controller('chat')
 @UseGuards(AuthGuard('jwt'))
 export class ChatController {
